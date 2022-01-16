@@ -104,7 +104,7 @@ bool GoodCrash1()
 {
 	if (obstacle.getFillColor() == ball.getFillColor() && obstacle.getGlobalBounds().intersects(ball.getGlobalBounds()))
 	{
-		cout << "gud collision1" << endl;
+		//cout << "gud collision1" << endl;
 		//good = 1;
 		//count1 = 1;
 		return true;
@@ -117,7 +117,7 @@ bool GoodCrash2()
 {
 	if (obstacle1.getFillColor() == ball.getFillColor() && obstacle1.getGlobalBounds().intersects(ball.getGlobalBounds()))
 	{
-		cout << "gud collision2" << endl;
+		//cout << "gud collision2" << endl;
 		//good = 1;
 		//count2 = 1;
 		return true;
@@ -130,7 +130,7 @@ bool GoodCrash3()
 {
 	if (obstacle2.getFillColor() == ball.getFillColor() && obstacle2.getGlobalBounds().intersects(ball.getGlobalBounds()))
 	{
-		cout << "gud collision3" << endl;
+		//cout << "gud collision3" << endl;
 		//good = 1;
 		//count3 = 1;
 		return true;
@@ -143,7 +143,7 @@ bool GoodCrash4()
 {
 	if (obstacle3.getFillColor() == ball.getFillColor() && obstacle3.getGlobalBounds().intersects(ball.getGlobalBounds()))
 	{
-		cout << "gud collision4" << endl;
+		//cout << "gud collision4" << endl;
 		//good = 1;
 		//count4 = 1;
 		return true;
@@ -305,7 +305,7 @@ int main()
 				//cout << ball.getPosition().y << endl;
 			}
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && BadCrash() == true)
 			{
 
 				//float x = Mouse::getPosition().x - 513;
@@ -365,42 +365,44 @@ int main()
 				SCORE++;
 
 				//cout << good1 << " " << count1 << endl;
-				cout << "GoodCrash1=  " << GoodCrash1() << endl;
-				cout << "count1=  " << count1 << endl;
+				//cout << "GoodCrash1=  " << GoodCrash1() << endl;
+				//cout << "count1=  " << count1 << endl;
 
-				if (GoodCrash1() == true && count1 == 0)
-				{
-
-					SCORE = SCORE + 20;
-					count1 = 1;
-					cout << "ob1" << endl;
-				}
-				//cout << "GoodCrash2=  " << GoodCrash2() << endl;
-				//cout << "count2=  " << count2 << endl;
-
-				if (GoodCrash2() == true && count2 == 0)
-				{
-					SCORE = SCORE + 20;
-					count2 = 1;
-					cout << "obs2" << endl;
-				}
-				if (GoodCrash3() == true && count3 == 0)
-				{
-					SCORE = SCORE + 20;
-					count3 = 1;
-					cout << "ob3" << endl;
-				}
-				if (GoodCrash4() == true && count4 == 0)
-				{
-					SCORE = SCORE + 20;
-					count4 = 1;
-					cout << "ob4" << endl;
-				}
-				scorestr = to_string(SCORE);
-
-				scrnum.setString(scorestr);
 				clock7.restart();
 			}
+		}
+
+		scorestr = to_string(SCORE);
+
+		scrnum.setString(scorestr);
+
+		if (GoodCrash1() == true && count1 == 0)
+		{
+
+			SCORE = SCORE + 20;
+			count1 = 1;
+			//cout << "ob1" << endl;
+		}
+		//cout << "GoodCrash2=  " << GoodCrash2() << endl;
+		//cout << "count2=  " << count2 << endl;
+
+		if (GoodCrash2() == true && count2 == 0)
+		{
+			SCORE = SCORE + 20;
+			count2 = 1;
+			//cout << "obs2" << endl;
+		}
+		if (GoodCrash3() == true && count3 == 0)
+		{
+			SCORE = SCORE + 20;
+			count3 = 1;
+			//cout << "ob3" << endl;
+		}
+		if (GoodCrash4() == true && count4 == 0)
+		{
+			SCORE = SCORE + 20;
+			count4 = 1;
+			//cout << "ob4" << endl;
 		}
 
 		if (elapsed1.asSeconds() >= 6.0000) //for the ball coloring
@@ -412,7 +414,7 @@ int main()
 			clock1.restart();
 		}
 
-		if (elapsed2.asSeconds() >= 0.0500) //for movement of obstacles  //0.0114
+		if (elapsed2.asSeconds() >= 0.0114) //for movement of obstacles  //0.0114
 		{
 			obstacle.move(0, 2);
 			obstacle1.move(0, 2);
@@ -505,8 +507,8 @@ int main()
 			window.draw(scorebar);
 			window.draw(score);
 			window.draw(scrnum);
-			window.draw(high);
-			window.draw(hinum);
+			//window.draw(high);
+			//window.draw(hinum);
 		}
 
 		//cout << "..." << bad << endl;
