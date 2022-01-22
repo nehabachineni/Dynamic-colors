@@ -152,8 +152,6 @@ bool GoodCrash4()
 	return false;
 }
 
-//int HI = 0;
-
 int main()
 {
 
@@ -168,17 +166,9 @@ int main()
 
 	getline(MyReadFile, myText);
 
-	//if (MyReadFile.peek() != std::ifstream::traits_type::eof()) //file not empty
-		HI = stoi(myText);
-	//else
-	//{
-		//HI = 0;
-	//}
+	HI = stoi(myText);
 
 	MyReadFile.close();
-
-	//fstream MyFile("highscore.txt", ios::out | ios::trunc);
-	//MyFile << HI;
 
 	sf::RenderWindow window(sf::VideoMode(900, 972), "ESCAPE THE UNKNOWN", sf::Style::Close);
 
@@ -437,28 +427,28 @@ int main()
 
 			if (obstacle.getPosition().y >= 968)
 			{
-				obstacle.setPosition(0, -30); //IF OBSTACLES REACH THE END MAKE THEM COME BACK
+				obstacle.setPosition(RandomSidex1(), -30); //IF OBSTACLES REACH THE END MAKE THEM COME BACK
 				count1 = 0;
 				//good1 = 0;
 			}
 
 			if (obstacle1.getPosition().y >= 968)
 			{
-				obstacle1.setPosition(420, -30);
+				obstacle1.setPosition(RandomSidex2(), -30);
 				count2 = 0;
 				//good2 = 0;
 			}
 
 			if (obstacle2.getPosition().y >= 968)
 			{
-				obstacle2.setPosition(0, -30);
+				obstacle2.setPosition(RandomSidex3(), -30);
 				count3 = 0;
 				//good3 = 0;
 			}
 
 			if (obstacle3.getPosition().y >= 968)
 			{
-				obstacle3.setPosition(440, -30);
+				obstacle3.setPosition(RandomSidex4(), -30);
 				count4 = 0;
 				//good4 = 0;
 			}
