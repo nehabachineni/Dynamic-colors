@@ -163,25 +163,22 @@ int main()
 
 	string myText;
 
-	ifstream MyReadFile("highscore.txt");
+	fstream MyReadFile("highscore.txt");
 	int HI = 0;
 
 	getline(MyReadFile, myText);
 
-	if (MyReadFile.peek() != std::ifstream::traits_type::eof()) //file not empty
+	//if (MyReadFile.peek() != std::ifstream::traits_type::eof()) //file not empty
 		HI = stoi(myText);
-	else
-	{
-		HI = 0;
-	}
+	//else
+	//{
+		//HI = 0;
+	//}
 
 	MyReadFile.close();
 
-	//fstream HighScoreFile;
-
-	//HighScoreFile.open("C:/Users/nehab/Downloads/sfml-vscode-boilerplate-master/src/HighScore.txt", ios::out | ios::trunc);
-	fstream MyFile("highscore.txt", ios::out | ios::trunc);
-	MyFile << HI;
+	//fstream MyFile("highscore.txt", ios::out | ios::trunc);
+	//MyFile << HI;
 
 	sf::RenderWindow window(sf::VideoMode(900, 972), "ESCAPE THE UNKNOWN", sf::Style::Close);
 
