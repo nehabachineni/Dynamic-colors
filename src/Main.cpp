@@ -152,17 +152,35 @@ bool GoodCrash4()
 	return false;
 }
 
+//int HI = 0;
+
 int main()
 {
 
 	int SCORE = 0;
-	int HI = 0; // read from file ;if empty hi=0;
-				// not empty ... then hi=value in it
+	// read from file ;if empty hi=0;
+	// not empty ... then hi=value in it
+
+	string myText;
+
+	ifstream MyReadFile("highscore.txt");
+	int HI = 0;
+
+	getline(MyReadFile, myText);
+
+	if (MyReadFile.peek() != std::ifstream::traits_type::eof()) //file not empty
+		HI = stoi(myText);
+	else
+	{
+		HI = 0;
+	}
+
+	MyReadFile.close();
 
 	//fstream HighScoreFile;
-	fstream MyFile("filename.txt");
-	//HighScoreFile.open("C:/Users/nehab/Downloads/sfml-vscode-boilerplate-master/src/HighScore.txt", ios::out | ios::trunc);
 
+	//HighScoreFile.open("C:/Users/nehab/Downloads/sfml-vscode-boilerplate-master/src/HighScore.txt", ios::out | ios::trunc);
+	fstream MyFile("highscore.txt", ios::out | ios::trunc);
 	MyFile << HI;
 
 	sf::RenderWindow window(sf::VideoMode(900, 972), "ESCAPE THE UNKNOWN", sf::Style::Close);
@@ -253,11 +271,6 @@ int main()
 	int count3 = 0;
 	int count4 = 0;
 
-	//int good1 = 0;
-	//int good2 = 0;
-	//int good3 = 0;
-	//int good4 = 0;
-
 	string scorestr = "";
 
 	while (window.isOpen())
@@ -270,6 +283,7 @@ int main()
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
 				window.close();
+				return 0;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) // moving ball to the right
@@ -332,11 +346,6 @@ int main()
 			scrnum.setPosition(101, 0);
 			score.setPosition(0, 0);
 			bad = 0;
-			//good = 0;
-			//good1 = 0;
-			//good2 = 0;
-			//good3 = 0;
-			//good4 = 0;
 			count1 = 0;
 			count2 = 0;
 			count3 = 0;
@@ -357,6 +366,16 @@ int main()
 		Time elapsed6 = clock6.getElapsedTime(); // color ob3
 		Time elapsed7 = clock7.getElapsedTime(); // score update
 
+		scorestr = to_string(SCORE);
+
+		scrnum.setString(scorestr);
+
+		string histr;
+
+		histr = to_string(HI);
+
+		hinum.setString(histr);
+
 		if (BadCrash() == false)
 		{
 			if (elapsed7.asSeconds() >= 0.6300) //for score update hehe
@@ -372,11 +391,7 @@ int main()
 			}
 		}
 
-		scorestr = to_string(SCORE);
-
-		scrnum.setString(scorestr);
-
-		if (GoodCrash1() == true && count1 == 0)
+		if (BadCrash() == false && GoodCrash1() == true && count1 == 0)
 		{
 
 			SCORE = SCORE + 20;
@@ -386,19 +401,19 @@ int main()
 		//cout << "GoodCrash2=  " << GoodCrash2() << endl;
 		//cout << "count2=  " << count2 << endl;
 
-		if (GoodCrash2() == true && count2 == 0)
+		if (BadCrash() == false && GoodCrash2() == true && count2 == 0)
 		{
 			SCORE = SCORE + 20;
 			count2 = 1;
 			//cout << "obs2" << endl;
 		}
-		if (GoodCrash3() == true && count3 == 0)
+		if (BadCrash() == false && GoodCrash3() == true && count3 == 0)
 		{
 			SCORE = SCORE + 20;
 			count3 = 1;
 			//cout << "ob3" << endl;
 		}
-		if (GoodCrash4() == true && count4 == 0)
+		if (BadCrash() == false && GoodCrash4() == true && count4 == 0)
 		{
 			SCORE = SCORE + 20;
 			count4 = 1;
@@ -425,7 +440,7 @@ int main()
 
 			if (obstacle.getPosition().y >= 968)
 			{
-				obstacle.setPosition(0, -30);
+				obstacle.setPosition(0, -30); //IF OBSTACLES REACH THE END MAKE THEM COME BACK
 				count1 = 0;
 				//good1 = 0;
 			}
@@ -436,7 +451,7 @@ int main()
 				count2 = 0;
 				//good2 = 0;
 			}
-			//IF OBSTACLES REACH THE END MAKE THEM COME BACK
+
 			if (obstacle2.getPosition().y >= 968)
 			{
 				obstacle2.setPosition(0, -30);
@@ -488,12 +503,6 @@ int main()
 			clock6.restart();
 		}
 
-		//COLLISION TESTS
-
-		//GOOD COLLISIONS
-
-		//reset
-
 		window.clear();
 
 		if (BadCrash() == false || r == 1)
@@ -507,12 +516,12 @@ int main()
 			window.draw(scorebar);
 			window.draw(score);
 			window.draw(scrnum);
-			//window.draw(high);
-			//window.draw(hinum);
+			window.draw(high);
+			window.draw(hinum);
 		}
 
 		//cout << "..." << bad << endl;
-
+		//int stop = 0;
 		if (BadCrash() && r == 0)
 		{
 			window.clear(Color(180, 180, 180));
@@ -524,24 +533,20 @@ int main()
 			window.draw(scrnum);
 			window.draw(resetrec);
 			window.draw(reset);
-
-			//HighScoreFile.seekg(0, ios::beg);
-			//HighScoreFile >> HI;
-			//cout << HI;
-
-			if (SCORE > HI)
-			{
-				//HI = SCORE;
-				//update into file;
-				//HighScoreFile.seekg(0, ios::beg);
-				//HighScoreFile << HI;
-			}
 		}
+		//cout << SCORE << endl;
+		if (SCORE > HI)
 
+		{
+
+			HI = SCORE;
+			fstream MyFile("highscore.txt", ios::out | ios::trunc); //clear file
+			//cout << HI << endl;
+			MyFile << HI;
+			MyFile.close();
+		}
 		window.display();
 	}
-
-	//HighScoreFile.close();
 
 	return 0;
 }
