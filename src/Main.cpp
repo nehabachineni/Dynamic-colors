@@ -1,23 +1,19 @@
 
+#include "../include/ob0.h"
+#include "../include/randomizer.h"
 #include "bits/stdc++.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
 using namespace std;
 using namespace sf;
 
 sf::Color ranColor();
 
 bool BadCrash();
-bool GoodCrash1();
+
 bool GoodCrash2();
 bool GoodCrash3();
 bool GoodCrash4();
-
-int RandomSidex1();
-int RandomSidex2();
-int RandomSidex3();
-int RandomSidex4();
 
 sf::Color ranColor()
 {
@@ -29,21 +25,9 @@ sf::Color ranColor()
 	return colour[x];
 }
 
-sf::RectangleShape obstacle(sf::Vector2f(470.f, 40.f));
 sf::RectangleShape obstacle1(sf::Vector2f(480.f, 40.f));
 sf::RectangleShape obstacle2(sf::Vector2f(450.f, 40.f));
 sf::RectangleShape obstacle3(sf::Vector2f(460.f, 40.f));
-
-sf::CircleShape ball(26.f);
-
-int RandomSidex1()
-{
-	int x1[2] = { 430, 0 };
-
-	int ans1 = rand() % 2;
-
-	return x1[ans1];
-}
 
 int RandomSidex2()
 {
@@ -100,19 +84,6 @@ bool BadCrash()
 	}
 }
 
-bool GoodCrash1()
-{
-	if (obstacle.getFillColor() == ball.getFillColor() && obstacle.getGlobalBounds().intersects(ball.getGlobalBounds()))
-	{
-		//cout << "gud collision1" << endl;
-		//good = 1;
-		//count1 = 1;
-		return true;
-	}
-
-	return false;
-}
-
 bool GoodCrash2()
 {
 	if (obstacle1.getFillColor() == ball.getFillColor() && obstacle1.getGlobalBounds().intersects(ball.getGlobalBounds()))
@@ -167,6 +138,7 @@ int main()
 	getline(MyReadFile, myText);
 
 	HI = stoi(myText);
+	int prev = HI;
 
 	MyReadFile.close();
 
@@ -184,6 +156,7 @@ int main()
 	sf::Text high;
 	sf::Text hinum;
 	sf::Text reset;
+	sf::Text newhi;
 
 	score.setFont(font); // font is a sf::Font
 	score.setString("SCORE:");
@@ -194,6 +167,12 @@ int main()
 	scrnum.setPosition(101, 0);
 	scrnum.setCharacterSize(24);
 	scrnum.setFillColor(sf::Color::Green);
+
+	newhi.setFont(font);
+	newhi.setPosition(300, 600);
+	newhi.setCharacterSize(24);
+	newhi.setString("new high score made!");
+	newhi.setFillColor(sf::Color::Green);
 
 	wrongmove.setFont(font);
 	wrongmove.setString("OOPSS");
@@ -338,6 +317,7 @@ int main()
 			count3 = 0;
 			count4 = 0;
 			SCORE = 0;
+			prev = HI;
 
 			obstacle.setPosition(RandomSidex1(), -150);
 			obstacle1.setPosition(RandomSidex2(), 93);
@@ -520,15 +500,21 @@ int main()
 			window.draw(scrnum);
 			window.draw(resetrec);
 			window.draw(reset);
+			if (SCORE > prev)
+			{
+				window.draw(newhi);
+			}
 		}
 		//cout << SCORE << endl;
+
 		if (SCORE > HI)
 
 		{
 
+			//cout << "okay";
 			HI = SCORE;
 			fstream MyFile("highscore.txt", ios::out | ios::trunc); //clear file
-			//cout << HI << endl;
+
 			MyFile << HI;
 			MyFile.close();
 		}
