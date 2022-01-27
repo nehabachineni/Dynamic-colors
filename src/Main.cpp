@@ -1,19 +1,15 @@
 
-#include "../include/ob0.h"
-#include "../include/randomizer.h"
-#include "bits/stdc++.h"
+//#include "../include/ball.h"
+//#include "../include/ob1.h"
+
+#include "../include/collision.h"
+#include "bits/stdc++.h" //<> will also work
 #include <SFML/Graphics.hpp>
-#include <iostream>
+
 using namespace std;
 using namespace sf;
 
 sf::Color ranColor();
-
-bool BadCrash();
-
-bool GoodCrash2();
-bool GoodCrash3();
-bool GoodCrash4();
 
 sf::Color ranColor()
 {
@@ -23,104 +19,6 @@ sf::Color ranColor()
 	int x = rand() % 6;
 
 	return colour[x];
-}
-
-sf::RectangleShape obstacle1(sf::Vector2f(480.f, 40.f));
-sf::RectangleShape obstacle2(sf::Vector2f(450.f, 40.f));
-sf::RectangleShape obstacle3(sf::Vector2f(460.f, 40.f));
-
-int RandomSidex2()
-{
-	int x2[2] = { 0, 420 };
-
-	int ans2 = rand() % 2;
-
-	return x2[ans2];
-}
-
-int RandomSidex3()
-{
-	int x3[2] = { 0, 450 };
-
-	int ans3 = rand() % 2;
-
-	return x3[ans3];
-}
-
-int RandomSidex4()
-{
-	int x4[2] = { 440, 0 };
-
-	int ans4 = rand() % 2;
-
-	return x4[ans4];
-}
-
-int bad = 0;
-int good = 0;
-
-bool BadCrash()
-{
-
-	if (obstacle.getFillColor() != ball.getFillColor() && obstacle.getGlobalBounds().intersects(ball.getGlobalBounds()))
-		//cout << "bad collision0" << endl;
-		bad = 1;
-
-	if (obstacle1.getFillColor() != ball.getFillColor() && obstacle1.getGlobalBounds().intersects(ball.getGlobalBounds()))
-		//cout << "bad collision1" << endl;
-		bad = 1;
-	if (obstacle2.getFillColor() != ball.getFillColor() && obstacle2.getGlobalBounds().intersects(ball.getGlobalBounds()))
-		//cout << "bad collision2" << endl;
-		bad = 1;
-	if (obstacle3.getFillColor() != ball.getFillColor() && obstacle3.getGlobalBounds().intersects(ball.getGlobalBounds()))
-		//cout << "bad collision3" << endl;
-		bad = 1;
-
-	if (bad == 1)
-		return true;
-	else
-	{
-		return false;
-	}
-}
-
-bool GoodCrash2()
-{
-	if (obstacle1.getFillColor() == ball.getFillColor() && obstacle1.getGlobalBounds().intersects(ball.getGlobalBounds()))
-	{
-		//cout << "gud collision2" << endl;
-		//good = 1;
-		//count2 = 1;
-		return true;
-	}
-
-	return false;
-}
-
-bool GoodCrash3()
-{
-	if (obstacle2.getFillColor() == ball.getFillColor() && obstacle2.getGlobalBounds().intersects(ball.getGlobalBounds()))
-	{
-		//cout << "gud collision3" << endl;
-		//good = 1;
-		//count3 = 1;
-		return true;
-	}
-
-	return false;
-}
-
-bool GoodCrash4()
-{
-	if (obstacle3.getFillColor() == ball.getFillColor() && obstacle3.getGlobalBounds().intersects(ball.getGlobalBounds()))
-	{
-		//cout << "gud collision4" << endl;
-		//good = 1;
-		//count4 = 1;
-		return true;
-	}
-
-	return false;
 }
 
 int main()
@@ -508,9 +406,7 @@ int main()
 		//cout << SCORE << endl;
 
 		if (SCORE > HI)
-
 		{
-
 			//cout << "okay";
 			HI = SCORE;
 			fstream MyFile("highscore.txt", ios::out | ios::trunc); //clear file

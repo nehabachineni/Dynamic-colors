@@ -1,9 +1,9 @@
+
+#include "../include/ball.h"
 #include "bits/stdc++.h"
 using namespace std;
 
 sf::RectangleShape obstacle(sf::Vector2f(470.f, 40.f));
-
-sf::CircleShape ball(26.f);
 
 int RandomSidex1();
 
