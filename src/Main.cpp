@@ -4,12 +4,35 @@
 
 #include "../include/collision.h"
 #include "bits/stdc++.h" //<> will also work
-#include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace sf;
 
+sf::Text score;
+sf::Text scrnum;
+sf::Text wrongmove;
+sf::Text high;
+sf::Text hinum;
+sf::Text reset;
+sf::Text newhi;
+sf::RectangleShape scorebar(sf::Vector2f(900.f, 70.f));
+
 sf::Color ranColor();
+void updatewindow(sf::RenderWindow& window);
+void updatewindow(sf::RenderWindow& window)
+{
+	window.draw(obstacle);
+	window.draw(obstacle1);
+	window.draw(obstacle2);
+	window.draw(obstacle3);
+	window.draw(ball);
+
+	window.draw(scorebar);
+	window.draw(score);
+	window.draw(scrnum);
+	window.draw(high);
+	window.draw(hinum);
+}
 
 sf::Color ranColor()
 {
@@ -47,14 +70,6 @@ int main()
 	{
 		cout << "BAD! :< :( :{  :[  :/";
 	}
-
-	sf::Text score;
-	sf::Text scrnum;
-	sf::Text wrongmove;
-	sf::Text high;
-	sf::Text hinum;
-	sf::Text reset;
-	sf::Text newhi;
 
 	score.setFont(font); // font is a sf::Font
 	score.setString("SCORE:");
@@ -109,7 +124,6 @@ int main()
 	obstacle3.setFillColor(sf::Color::Magenta);
 	obstacle3.setPosition(RandomSidex4(), 579);
 
-	sf::RectangleShape scorebar(sf::Vector2f(900.f, 70.f));
 	scorebar.setFillColor(sf::Color(180, 180, 180));
 
 	sf::RectangleShape resetrec(sf::Vector2f(180.f, 50.f));
@@ -143,57 +157,19 @@ int main()
 		int r = 0;
 
 		while (window.pollEvent(event))
+
 		{
+
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
 				window.close();
 				return 0;
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) // moving ball to the right
-			{
-				if (ball.getPosition().x < 840)
-					ball.move(25, 0);
-				//cout << ball.getPosition().x << endl;
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) // moving ball to the left
-			{
-				if (ball.getPosition().x > 10)
-					ball.move(-25, 0);
-
-				//cout << ball.getPosition().x << endl;
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) // moving ball upwards
-			{
-				if (ball.getPosition().y > 80)
-				{
-					ball.move(0, -25);
-				}
-
-				//cout << ball.getPosition().y << endl;
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) // moving ball downwards
-			{
-				if (ball.getPosition().y < 908)
-					ball.move(0, 25);
-
-				//cout << ball.getPosition().y << endl;
-			}
+			ballfunc(ball);
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && BadCrash() == true)
 			{
-
-				//float x = Mouse::getPosition().x - 513;
-				//float y = Mouse::getPosition().y - 91;
-				//cout << x << " " << y << endl;
-				//float x1 = resetrec.getPosition().x;
-				//float x2 = resetrec.getPosition().x + resetrec.getSize().x;
-				//float y1 = resetrec.getPosition().y;
-				//float y2 = (resetrec.getPosition().y + resetrec.getSize().y);
-				//cout << x1 << " " << x2 << " " << y1 << " " << y2 << endl;
 
 				if (resetrec.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 				{
@@ -247,11 +223,6 @@ int main()
 			{
 
 				SCORE++;
-
-				//cout << good1 << " " << count1 << endl;
-				//cout << "GoodCrash1=  " << GoodCrash1() << endl;
-				//cout << "count1=  " << count1 << endl;
-
 				clock7.restart();
 			}
 		}
@@ -372,17 +343,7 @@ int main()
 
 		if (BadCrash() == false || r == 1)
 		{
-			window.draw(obstacle);
-			window.draw(obstacle1);
-			window.draw(obstacle2);
-			window.draw(obstacle3);
-			window.draw(ball);
-
-			window.draw(scorebar);
-			window.draw(score);
-			window.draw(scrnum);
-			window.draw(high);
-			window.draw(hinum);
+			updatewindow(window);
 		}
 
 		//cout << "..." << bad << endl;
